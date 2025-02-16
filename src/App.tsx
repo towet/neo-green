@@ -40,6 +40,7 @@ import {
   Linkedin
 } from 'lucide-react';
 import automationBg from './assets/automation-bg.jpg';
+import heroSvg from './assets/hero-automation.svg';
 
 interface Feature {
   title: string;
@@ -601,7 +602,7 @@ function App() {
             <div className="relative">
               <div className="hero-image">
                 <img 
-                  src="/src/assets/hero-automation.svg" 
+                  src={heroSvg}
                   alt="AI Automation Illustration" 
                   className="w-full h-auto max-w-lg mx-auto"
                 />
