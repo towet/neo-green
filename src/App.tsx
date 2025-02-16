@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Bot,
   Brain,
@@ -172,20 +172,20 @@ function Modal({
 }
 
 function App() {
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [showCalculator, setShowCalculator] = useState(false);
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
-  const [showChat, setShowChat] = useState(false);
   const [isConsultModalOpen, setIsConsultModalOpen] = useState(false);
   const [showRoiNotification, setShowRoiNotification] = useState(false);
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+  const [showCalculator, setShowCalculator] = useState(false);
+  const [showChat, setShowChat] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const currentProgress = (window.scrollY / totalScroll) * 100;
-      setScrollProgress(currentProgress);
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const currentScroll = window.scrollY;
+      setScrollProgress((currentScroll / totalScroll) * 100);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -193,18 +193,26 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1,
+    };
 
-    document.querySelectorAll('.section-fade').forEach((el) => observer.observe(el));
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, observerOptions);
+
+    // Observe all elements with animation classes
+    document.querySelectorAll('.animate-on-scroll, .slide-in-right, .scale-in').forEach(element => {
+      observer.observe(element);
+    });
 
     return () => observer.disconnect();
   }, []);
@@ -459,6 +467,16 @@ function App() {
     };
   }, []);
 
+  const handleWhatsAppContact = () => {
+    window.open('https://wa.me/254795704273?text=Hi,%20I%27m%20interested%20in%20learning%20more%20about%20Nova%20Automations%20AI%20solutions.', '_blank');
+    setIsConsultModalOpen(false);
+  };
+
+  const handleEmailContact = () => {
+    window.open('mailto:frankyfreaky103@gmail.com?subject=Inquiry%20about%20Nova%20Automations%20AI%20Solutions&body=Hi,%20I%27m%20interested%20in%20learning%20more%20about%20your%20AI%20automation%20solutions.', '_blank');
+    setIsConsultModalOpen(false);
+  };
+
   return (
     <div className="bg-white min-h-screen">
       {/* Scroll Progress Bar */}
@@ -552,14 +570,14 @@ function App() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-gray-900 animate-on-scroll">
                 Transform your business with{' '}
                 <span className="text-[#25D366]">AI Automation</span>
               </h1>
-              <p className="text-lg sm:text-xl mb-8 max-w-xl text-gray-600">
+              <p className="text-lg sm:text-xl mb-8 max-w-xl text-gray-600 animate-on-scroll stagger-1">
                 Revolutionize your operations with cutting-edge AI solutions. Boost efficiency, reduce costs, and drive growth with Nova Automations.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 animate-on-scroll stagger-2">
                 <button 
                   onClick={() => setIsConsultModalOpen(true)}
                   className="px-8 py-4 bg-[#25D366] text-white rounded-full hover:bg-[#22c35e] transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-lg font-semibold flex items-center justify-center group"
@@ -597,8 +615,8 @@ function App() {
       {/* Features Section */}
       <section className="features-section py-20 sm:py-28 relative overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-20">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-6 gradient-text-animate">
+          <div className="max-w-3xl mx-auto text-center mb-20 animate-on-scroll">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
               Revolutionize Your Business with AI Automation
             </h2>
             <p className="text-lg sm:text-xl">
@@ -730,11 +748,11 @@ function App() {
 
       {/* Services Section */}
       <section id="services" className="py-16 sm:py-24 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#25D366]/5 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(6,182,212,0.15),transparent_70%)]" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-12 sm:mb-16 animate-on-scroll">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
               Our Services
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto text-lg">
@@ -746,88 +764,98 @@ function App() {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="group bg-white/50 backdrop-blur-sm rounded-xl p-6 sm:p-8 border border-gray-100 hover:border-gray-200 transition-all duration-300 hover:shadow-[0_0_30px_-10px_rgba(6,182,212,0.15)]"
+                className="group bg-white/80 backdrop-blur-sm rounded-xl p-6 sm:p-8 transition-all duration-300 
+                  border border-gray-100 hover:border-gray-200
+                  shadow-sm hover:shadow-xl hover:shadow-gray-100/50
+                  relative overflow-hidden animate-on-scroll"
+                style={{ transitionDelay: `${index * 100}ms` }}
               >
-                <div className="flex flex-col sm:flex-row sm:items-start gap-6 mb-6 sm:mb-8">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 sm:w-16 h-12 sm:h-16 rounded-xl bg-[#25D366]/20 flex items-center justify-center overflow-hidden">
-                      {service.title === "Business Process Automation" && (
-                        <img 
-                          src="https://www.nocontractvoip.com/wp-content/uploads/2022/08/automation-software-technology-process-system-business-concept-123697421.jpg"
-                          alt="Business Process Automation"
-                          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-                        />
-                      )}
-                      {service.title === "AI Chatbots & Assistants" && (
-                        <img 
-                          src="https://www.morgan.edu/Images/News/VirtualAssistant.jpg"
-                          alt="AI Chatbots & Assistants"
-                          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-                        />
-                      )}
-                      {service.title === "Marketing Automation" && (
-                        <img 
-                          src="https://www.corefactors.in/blog/content/images/2024/06/Blog-Banner--3---1-.png"
-                          alt="Marketing Automation"
-                          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-                        />
-                      )}
-                      {service.title === "Predictive Analytics" && (
-                        <img 
-                          src="https://d3an9kf42ylj3p.cloudfront.net/uploads/2023/02/amt_machinelearningpredictiveanalytics_feb-23.jpg"
-                          alt="Predictive Analytics"
-                          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-                        />
-                      )}
-                      {!["Business Process Automation", "AI Chatbots & Assistants", "Marketing Automation", "Predictive Analytics"].includes(service.title) && (
-                        <div className="text-[#25D366]">
-                          {service.icon}
-                        </div>
-                      )}
+                <div className="relative">
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-6 mb-6 sm:mb-8">
+                    <div className="flex-shrink-0">
+                      <div className="w-12 sm:w-16 h-12 sm:h-16 rounded-xl bg-gray-50 flex items-center justify-center overflow-hidden transition-colors duration-300">
+                        {service.title === "Business Process Automation" && (
+                          <img 
+                            src="https://www.nocontractvoip.com/wp-content/uploads/2022/08/automation-software-technology-process-system-business-concept-123697421.jpg"
+                            alt="Business Process Automation"
+                            className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                          />
+                        )}
+                        {service.title === "AI Chatbots & Assistants" && (
+                          <img 
+                            src="https://www.morgan.edu/Images/News/VirtualAssistant.jpg"
+                            alt="AI Chatbots & Assistants"
+                            className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                          />
+                        )}
+                        {service.title === "Marketing Automation" && (
+                          <img 
+                            src="https://www.corefactors.in/blog/content/images/2024/06/Blog-Banner--3---1-.png"
+                            alt="Marketing Automation"
+                            className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                          />
+                        )}
+                        {service.title === "Predictive Analytics" && (
+                          <img 
+                            src="https://d3an9kf42ylj3p.cloudfront.net/uploads/2023/02/amt_machinelearningpredictiveanalytics_feb-23.jpg"
+                            alt="Predictive Analytics"
+                            className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                          />
+                        )}
+                        {!["Business Process Automation", "AI Chatbots & Assistants", "Marketing Automation", "Predictive Analytics"].includes(service.title) && (
+                          <div className="text-[#25D366]">
+                            {service.icon}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                        {service.title}
+                      </h3>
+                      <p className="text-gray-600 font-medium">
+                        {service.subtitle}
+                      </p>
                     </div>
                   </div>
 
-                  <div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-gray-600 font-medium">
-                      {service.subtitle}
-                    </p>
+                  <p className="text-gray-600 mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base">
+                    {service.description}
+                  </p>
+
+                  <div className="space-y-6">
+                    <div>
+                      <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4 flex items-center">
+                        <Zap className="w-4 h-4 mr-2 text-[#25D366]" />
+                        Key Benefits
+                      </h4>
+                      <ul className="grid grid-cols-1 gap-3">
+                        {service.benefits.map((benefit, i) => (
+                          <li 
+                            key={i} 
+                            className="flex items-start text-gray-600 text-sm sm:text-base"
+                          >
+                            <CheckCircle className="w-5 h-5 text-[#25D366] mr-2 flex-shrink-0 mt-0.5" />
+                            <span>{benefit}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
+
+                  <button
+                    onClick={() => setSelectedService(service)}
+                    className="mt-6 sm:mt-8 w-full inline-flex items-center justify-center px-6 py-3.5 
+                      bg-[#25D366] text-white rounded-lg
+                      font-semibold text-sm sm:text-base
+                      transform transition-all duration-300
+                      hover:bg-[#22c35e] hover:-translate-y-0.5 hover:shadow-lg"
+                  >
+                    <span>Learn More</span>
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </button>
                 </div>
-
-                <p className="text-gray-600 mb-6 sm:mb-8 leading-relaxed text-sm sm:text-base">
-                  {service.description}
-                </p>
-
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="text-sm font-semibold text-[#25D366]/90 uppercase tracking-wider mb-4">
-                      <Zap className="w-4 h-4 mr-2" />
-                      Key Benefits
-                    </h4>
-                    <ul className="grid grid-cols-1 gap-3">
-                      {service.benefits.map((benefit, i) => (
-                        <li 
-                          key={i} 
-                          className="flex items-start text-gray-600 text-sm sm:text-base"
-                        >
-                          <CheckCircle className="w-5 h-5 text-[#25D366]/90 mr-2 flex-shrink-0 mt-0.5" />
-                          <span>{benefit}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <button
-                  onClick={() => setSelectedService(service)}
-                  className="mt-6 sm:mt-8 w-full px-6 py-3 bg-[#25D366]/10 text-[#25D366] hover:bg-[#25D366]/20 border border-[#25D366]/20 hover:border-[#25D366]/30 rounded-lg text-sm sm:text-base"
-                >
-                  Learn More
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </button>
               </div>
             ))}
           </div>
@@ -948,7 +976,7 @@ function App() {
                 Consult us free
                 <Calendar className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <button className="px-8 py-4 bg-gray-100 text-gray-900 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 text-lg font-semibold flex items-center justify-center group">
+              <button className="px-8 py-4 bg-gray-100 text-gray-900 rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105 text-lg font-semibold flex items-center justify-center group border-2 border-gray-200">
                 View Case Studies
                 <FileText className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </button>
@@ -1069,7 +1097,58 @@ function App() {
         </div>
       </footer>
 
-      {/* Modal */}
+      {/* Contact Modal */}
+      {isConsultModalOpen && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative animate-fade-in">
+            <button 
+              onClick={() => setIsConsultModalOpen(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Talk to an AI Expert
+            </h3>
+            <p className="text-gray-600 mb-8">
+              Choose your preferred way to connect with our AI automation experts:
+            </p>
+
+            <div className="space-y-4">
+              <button
+                onClick={handleWhatsAppContact}
+                className="w-full py-6 px-6 bg-[#25D366] text-white rounded-xl hover:bg-[#22c35e] transition-all duration-300 flex items-center justify-center group"
+              >
+                <img 
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/479px-WhatsApp.svg.png" 
+                  alt="WhatsApp"
+                  className="w-10 h-10 mr-4"
+                />
+                <span className="text-lg font-semibold">Chat on WhatsApp</span>
+                <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              <button
+                onClick={handleEmailContact}
+                className="w-full py-6 px-6 bg-white text-gray-900 rounded-xl hover:bg-gray-50 transition-all duration-300 flex items-center justify-center group border-2 border-gray-200"
+              >
+                <img 
+                  src="https://static-00.iconduck.com/assets.00/gmail-icon-1024x1024-09wrt8am.png" 
+                  alt="Gmail"
+                  className="w-10 h-10 mr-4"
+                />
+                <span className="text-lg font-semibold">Send Email</span>
+                <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+
+            <p className="text-sm text-gray-500 mt-6 text-center">
+              We typically respond within 2 hours during business hours.
+            </p>
+          </div>
+        </div>
+      )}
       {selectedService && (
         <Modal
           isOpen={!!selectedService}
