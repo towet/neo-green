@@ -633,7 +633,7 @@ function App() {
                 title: "Operational Consistency",
                 description: "Ensure consistent, error-free operations by automating routine tasks and processes.",
                 icon: <RefreshCw className="w-6 h-6" />,
-                image: "https://www.nocontractvoip.com/wp-content/uploads/2022/08/automation-software-technology-process-system-business-concept-123697421.jpg"
+                image: "https://www.salesforce.com/news/wp-content/uploads/sites/3/2025/02/Why-Digital-Labor-Will-Reshape-the-Enterprise-3.png"
               },
               {
                 title: "24/7 Intelligent Support",
