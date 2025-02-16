@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import {
   Bot,
   Brain,
@@ -565,7 +566,12 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-white pt-20 pb-12 sm:pt-32 sm:pb-24">
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="relative overflow-hidden bg-white pt-20 pb-12 sm:pt-32 sm:pb-24"
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(6,182,212,0.15),transparent_70%)]" />
         
         <div className="container mx-auto px-4 relative z-10">
@@ -586,16 +592,6 @@ function App() {
                   Talk to AI Expert
                   <MessageSquare className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </button>
-                <button 
-                  onClick={() => {
-                    setShowRoiNotification(true);
-                    setTimeout(() => setShowRoiNotification(false), 5000);
-                  }}
-                  className="px-8 py-4 bg-white text-black border-2 border-[#25D366] rounded-full hover:bg-[#25D366] hover:text-white transition-all duration-300 text-lg font-semibold flex items-center justify-center group"
-                >
-                  Calculate ROI
-                  <Calculator className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </button>
               </div>
             </div>
             
@@ -611,10 +607,16 @@ function App() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Features Section */}
-      <section className="features-section py-20 sm:py-28 relative overflow-hidden">
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="py-20 sm:py-28 relative overflow-hidden"
+      >
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-20 animate-on-scroll">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
@@ -670,10 +672,16 @@ function App() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* About Us Section */}
-      <section id="about" className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        id="about" className="py-16 sm:py-24 bg-white relative overflow-hidden"
+      >
         {/* Background Elements */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_rgba(6,182,212,0.1),transparent_70%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,_rgba(6,182,212,0.05),transparent_70%)]" />
@@ -745,10 +753,16 @@ function App() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Services Section */}
-      <section id="services" className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        id="services" className="py-16 sm:py-24 bg-white relative overflow-hidden"
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(6,182,212,0.15),transparent_70%)]" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -763,13 +777,16 @@ function App() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             {services.map((service, index) => (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
                 className="group bg-white/80 backdrop-blur-sm rounded-xl p-6 sm:p-8 transition-all duration-300 
                   border border-gray-100 hover:border-gray-200
                   shadow-sm hover:shadow-xl hover:shadow-gray-100/50
                   relative overflow-hidden animate-on-scroll"
-                style={{ transitionDelay: `${index * 100}ms` }}
               >
                 <div className="relative">
                   <div className="flex flex-col sm:flex-row sm:items-start gap-6 mb-6 sm:mb-8">
@@ -857,14 +874,20 @@ function App() {
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        id="testimonials" className="py-16 sm:py-24 bg-white relative overflow-hidden"
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(6,182,212,0.1),transparent_70%)]" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -904,8 +927,12 @@ function App() {
                 metric: "99.9% accuracy rate"
               }
             ].map((testimonial, index) => (
-              <div 
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
                 className="bg-white/50 backdrop-blur-sm rounded-xl p-6 border border-gray-100 hover:border-gray-200 transition-all duration-300"
               >
                 <div className="flex items-center mb-4">
@@ -928,14 +955,20 @@ function App() {
                 <div className="bg-[#25D366]/10 rounded-lg px-4 py-2 inline-block">
                   <span className="text-[#25D366] font-semibold">{testimonial.metric}</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Consultation CTA Section */}
-      <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="py-16 sm:py-24 bg-white relative overflow-hidden"
+      >
         <div className="absolute inset-0 bg-gradient-to-r from-[#25D366]/5 via-transparent to-transparent" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -984,10 +1017,16 @@ function App() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* FAQ Section */}
-      <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
+      <motion.section
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="py-16 sm:py-24 bg-white relative overflow-hidden"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
@@ -1045,7 +1084,7 @@ function App() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-100">
