@@ -147,7 +147,7 @@ function Modal({
             <div>
               <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 flex items-center">
                 <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-[#25D366]" />
-                ROI & Benefits
+                ROI & its  Benefits 
               </h4>
               <div className="grid grid-cols-1 gap-3 sm:gap-4">
                 {service.additionalInfo?.roi.map((item, i) => (
