@@ -546,29 +546,36 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#dcffe6] to-white pt-20 pb-12 sm:pt-32 sm:pb-24">
-        <div className="container mx-auto px-4">
+      <section className="relative overflow-hidden bg-white pt-20 pb-12 sm:pt-32 sm:pb-24">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_rgba(6,182,212,0.15),transparent_70%)]" />
+        
+        <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
                 Transform your business with{' '}
                 <span className="text-[#25D366]">AI Automation</span>
               </h1>
-              <p className="text-lg sm:text-xl mb-8 max-w-xl">
+              <p className="text-lg sm:text-xl mb-8 max-w-xl text-gray-600">
                 Revolutionize your operations with cutting-edge AI solutions. Boost efficiency, reduce costs, and drive growth with Nova Automations.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button
+                <button 
                   onClick={() => setIsConsultModalOpen(true)}
-                  className="bg-[#25D366] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[#22c35e] transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl"
+                  className="px-8 py-4 bg-[#25D366] text-white rounded-full hover:bg-[#22c35e] transition-all duration-300 transform hover:scale-105 hover:shadow-lg text-lg font-semibold flex items-center justify-center group"
                 >
-                  Get Started
+                  Talk to AI Expert
+                  <MessageSquare className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </button>
-                <button
-                  onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="border-2 border-[#25D366] text-[#25D366] px-8 py-3 rounded-lg font-semibold hover:bg-[#25D366] hover:text-white transition-all duration-300"
+                <button 
+                  onClick={() => {
+                    setShowRoiNotification(true);
+                    setTimeout(() => setShowRoiNotification(false), 5000);
+                  }}
+                  className="px-8 py-4 bg-white text-black border-2 border-[#25D366] rounded-full hover:bg-[#25D366] hover:text-white transition-all duration-300 text-lg font-semibold flex items-center justify-center group"
                 >
-                  Learn More
+                  Calculate ROI
+                  <Calculator className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </div>
@@ -585,15 +592,11 @@ function App() {
             </div>
           </div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute top-1/4 right-0 w-64 h-64 bg-[#25D366]/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-[#25D366]/5 rounded-full blur-3xl"></div>
       </section>
 
       {/* Features Section */}
       <section className="features-section py-20 sm:py-28 relative overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center mb-20">
             <h2 className="text-4xl sm:text-5xl font-bold mb-6 gradient-text-animate">
               Revolutionize Your Business with AI Automation
@@ -651,7 +654,7 @@ function App() {
       </section>
 
       {/* About Us Section */}
-      <section id="about" className="py-20 sm:py-32 bg-white relative overflow-hidden">
+      <section id="about" className="py-16 sm:py-24 bg-white relative overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_rgba(6,182,212,0.1),transparent_70%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,_rgba(6,182,212,0.05),transparent_70%)]" />
@@ -659,70 +662,67 @@ function App() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="relative">
-                <div className="absolute -inset-1 bg-gradient-to-r from-[#25D366]/20 to-[#25D366]/10 rounded-2xl opacity-20 blur-lg" />
-                <div className="relative bg-white/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-100">
-                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
-                    Nova Automations
-                  </h2>
-                  <div className="space-y-6 text-gray-600">
-                    <p className="leading-relaxed">
-                      Founded in 2024, Nova Automations stands at the forefront of AI automation innovation. We're not just another technology company – we're pioneers in transforming how businesses operate in the digital age.
-                    </p>
-                    <p className="leading-relaxed">
-                      Our mission is to democratize AI technology, making enterprise-grade automation accessible to businesses of all sizes. We believe that the future of work is intelligent, efficient, and human-centric.
-                    </p>
-                  </div>
-                </div>
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+                Nova Automations
+              </h2>
+              <div className="space-y-6 text-gray-600">
+                <p className="leading-relaxed">
+                  Founded in 2024, Nova Automations stands at the forefront of AI automation innovation. 
+                  We're not just another technology company – we're pioneers in transforming how businesses 
+                  operate in the digital age.
+                </p>
+                <p className="leading-relaxed">
+                  Our mission is to democratize AI technology, making enterprise-grade automation accessible 
+                  to businesses of all sizes. We believe that the future of work is intelligent, efficient, 
+                  and human-centric.
+                </p>
               </div>
             </div>
 
-            <div className="order-1 lg:order-2 space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">Our Expertise</h3>
-                <div className="space-y-6">
-                  {[
-                    {
-                      title: "24/7 Intelligent Chatbot",
-                      description: "Integrate AI-powered chatbots and virtual assistants that resolve customer queries instantly, handle reception, and upsell products seamlessly.",
-                      icon: <MessageSquare className="w-5 h-5" />
-                    },
-                    {
-                      title: "Marketing Automation",
-                      description: "Leverage AI to create personalized marketing content and strategies based on market analysis, improving ROI on marketing efforts.",
-                      icon: <Target className="w-5 h-5" />
-                    },
-                    {
-                      title: "Workflow Automation",
-                      description: "Automate repetitive tasks across departments such as HR, finance, procurement and operations.",
-                      icon: <Cpu className="w-5 h-5" />
-                    },
-                    {
-                      title: "Predictive Analytics",
-                      description: "Use AI-driven predictive analytics to forecast trends and customer behavior and optimize marketing strategies and inventory management by predicting demand patterns.",
-                      icon: <LineChart className="w-5 h-5" />
-                    }
-                  ].map((expertise, index) => (
-                    <div 
-                      key={index}
-                      className="group bg-white/50 backdrop-blur-sm rounded-xl p-6 border border-gray-100 hover:border-gray-200 transition-all duration-300"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="w-10 h-10 rounded-lg bg-[#25D366]/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                          <div className="text-[#25D366]">
-                            {expertise.icon}
-                          </div>
-                        </div>
-                        <div>
-                          <h4 className="text-lg font-semibold text-gray-900 mb-2">{expertise.title}</h4>
-                          <p className="text-gray-600">{expertise.description}</p>
+            <div>
+              <h4 className="text-sm font-semibold text-gray-900 uppercase tracking-wider mb-4">Our Expertise</h4>
+              <ul className="space-y-6">
+                {[
+                  {
+                    title: "24/7 Intelligent Chatbot",
+                    description: "Integrate AI-powered chatbots and virtual assistants that resolve customer queries instantly, handle reception, and upsell products seamlessly.",
+                    icon: <MessageSquare className="w-5 h-5" />
+                  },
+                  {
+                    title: "Marketing Automation",
+                    description: "Leverage AI to create personalized marketing content and strategies based on market analysis, improving ROI on marketing efforts.",
+                    icon: <Target className="w-5 h-5" />
+                  },
+                  {
+                    title: "Workflow Automation",
+                    description: "Automate repetitive tasks across departments such as HR, finance, procurement and operations.",
+                    icon: <Cpu className="w-5 h-5" />
+                  },
+                  {
+                    title: "Predictive Analytics",
+                    description: "Use AI-driven predictive analytics to forecast trends and customer behavior and optimize marketing strategies and inventory management by predicting demand patterns.",
+                    icon: <LineChart className="w-5 h-5" />
+                  }
+                ].map((expertise, index) => (
+                  <div 
+                    key={index}
+                    className="group bg-white/50 backdrop-blur-sm rounded-xl p-6 border border-gray-100 hover:border-gray-200 transition-all duration-300"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-10 h-10 rounded-lg bg-[#25D366]/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                        <div className="text-[#25D366]">
+                          {expertise.icon}
                         </div>
                       </div>
+                      <div>
+                        <h4 className="text-lg font-semibold text-gray-900 mb-2">{expertise.title}</h4>
+                        <p className="text-gray-600">{expertise.description}</p>
+                      </div>
                     </div>
-                  ))}
-                </div>
-              </div>
+                  </div>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
@@ -892,7 +892,7 @@ function App() {
                 </div>
                 <div className="flex items-center mb-3">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 text-yellow-500 fill-current" />
+                    <Star key={i} className="w-4 h-4 text-yellow-500" />
                   ))}
                 </div>
                 <p className="text-gray-600 mb-4">{testimonial.quote}</p>
