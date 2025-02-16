@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000" height="1000" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0,0)">
+    <!-- Your SVG content here -->
+    <style>
+      .monitor { fill: #2D3748; }
+      .screen { fill: #1A202C; }
+      .code-line { fill: #25D366; }
+      .icon { fill: #25D366; }
+      .person { fill: #4A5568; }
+      .laptop { fill: #2D3748; }
+      .gear { fill: #25D366; }
+    </style>
+    <!-- Monitor -->
+    <rect class="monitor" x="100" y="100" width="400" height="300" rx="10"/>
+    <rect class="screen" x="120" y="120" width="360" height="240"/>
+    <!-- Code lines -->
+    <rect class="code-line" x="140" y="140" width="200" height="10" rx="2" opacity="0.6"/>
+    <rect class="code-line" x="140" y="160" width="150" height="10" rx="2" opacity="0.6"/>
+    <rect class="code-line" x="140" y="180" width="250" height="10" rx="2" opacity="0.6"/>
+    <!-- Icons -->
+    <circle class="icon" cx="140" cy="250" r="20"/>
+    <circle class="icon" cx="190" cy="250" r="20"/>
+    <circle class="icon" cx="240" cy="250" r="20"/>
+    <!-- Person -->
+    <rect class="person" x="700" y="200" width="100" height="200"/>
+    <circle class="person" cx="750" cy="150" r="50"/>
+    <!-- Laptop -->
+    <rect class="laptop" x="500" y="400" width="300" height="200" rx="10"/>
+    <rect class="screen" x="520" y="420" width="260" height="160"/>
+    <!-- Gears -->
+    <circle class="gear" cx="300" cy="700" r="80"/>
+    <circle class="gear" cx="500" cy="700" r="60"/>
+  </g>
+</svg>
